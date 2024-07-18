@@ -23,6 +23,17 @@
       scopes: ['openid', 'profile', 'email']
     });
     
+    // Subscribe to authState change event.
+    authClient.authStateManager.subscribe(function(authState) {
+      // Logic based on authState is done here.
+      if (authState.isAuthenticated) {
+        // render unathenticated view
+        return;
+      }
+
+      // Render authenticated view
+    });
+
     if (authClient.isLoginRedirect()) {
       // Parse token from redirect url
       console.log("Parse token from redirect url");
@@ -73,6 +84,19 @@
       });;">Sign in</button>
     </div>
   </div>
+  <p></p>
+  <div class="row">
+    <div class="d-grid gap-2">
+      <button type="button" class="btn btn-dark" onclick="authClient.token.getWithRedirect({
+        responseType: ['id_token'],
+        idp: '0oahwmd1wgbzRJWtg5d7',
+        scopes: ['openid'],
+        state: 'sasasas',
+        nonce: 'aaassss'
+      });;">Sign in with external IdP</button>
+    </div>
+  </div>
+  <p></p>
   <div class="row">
     <div id="content-jwt"></div>
   </div>
